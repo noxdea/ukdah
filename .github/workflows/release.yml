@@ -17,8 +17,8 @@ jobs:
     timeout-minutes: 15
     environment: release
     permissions:
-      contents: write
-      id-token: write
+      contents: write # Required to create the GitHub release.
+      id-token: write # Required for RubyGems trusted publishing.
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -26,15 +26,16 @@ jobs:
       - uses: ruby/setup-ruby@984c0c890880bbf811283d6f09c4607c62d210a4 # v1.323.0
         with:
           ruby-version: '3.4'
-          bundler-cache: true
       - name: Verify tag and version
         run: test "${GITHUB_REF_NAME}" = "v$(ruby -Ilib -rukdah/version -e 'print Ukdah::VERSION')"
       - name: Test and build
         run: |
+          bundle install
           bundle exec rake
-          gem build --strict ukdah.gemspec --output ukdah.gem
+          gem build --strict ukdah.gemspec --output /tmp/ukdah.gem
+      - uses: rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a # v2.1.0
       - name: Publish through RubyGems trusted publishing
-        uses: rubygems/release-gem@7f9650160c1a4e7989fdc9855807bdbd421d8b6b # v1.4.1
+        run: gem push /tmp/ukdah.gem
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
