@@ -1,0 +1,12 @@
+From alice@example.test Mon Jan  1 00:00:00 2024
+Subject: one
+Content-Type: text/plain; charset=UTF-8
+
+one
+From this is body
+
+From bob@example.test Tue Jan  2 00:00:00 2024
+Subject: two
+Content-Type: text/plain; charset=UTF-8
+
+two

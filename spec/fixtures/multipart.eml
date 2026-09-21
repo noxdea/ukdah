@@ -1,0 +1,33 @@
+From: Alice <alice@example.test>
+To: Reader <reader@example.test>
+Subject: multipart example
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="mixed"
+
+--mixed
+Content-Type: multipart/alternative; boundary="alternative"
+
+--alternative
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+hello=20plain
+--alternative
+Content-Type: text/html; charset=UTF-8
+
+<p>hello <strong>HTML</strong></p><img src="cid:image@example.test">
+--alternative--
+--mixed
+Content-Type: image/png
+Content-ID: <image@example.test>
+Content-Disposition: inline
+Content-Transfer-Encoding: base64
+
+aW1hZ2U=
+--mixed
+Content-Type: application/octet-stream
+Content-Disposition: attachment; filename*=UTF-8''%E3%83%86%E3%82%B9%E3%83%88.txt
+Content-Transfer-Encoding: base64
+
+YWJj
+--mixed--
