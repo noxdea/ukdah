@@ -11,6 +11,10 @@ updates:
         versions: [">= 4.0"]
   - package-ecosystem: github-actions
     directory: /
+    groups:
+      codeql:
+        patterns:
+          - github/codeql-action/*
     schedule:
       interval: weekly
     cooldown:
